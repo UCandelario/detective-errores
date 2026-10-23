@@ -1,0 +1,4 @@
+{
+  "_comentario": "Lista FIJA de sitios a vigilar. Solo sitios propios o de práctica, siempre https. Nunca una URL que escriba un usuario. Se llena en la tarea T4.1.",
+  "sitios": []
+}
