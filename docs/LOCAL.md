@@ -1,5 +1,7 @@
 # Montaje y pruebas en local
 
+> ¿Eres nuevo? Empieza por [`EMPEZAR.md`](EMPEZAR.md): clonar, comprobar y un ejemplo completo. Esta página es la referencia de qué probar y cómo.
+
 Todo cambio se prueba en tu máquina **antes** de abrir un pull request. No necesitas acceso a AWS para hacerlo.
 
 ## Principios

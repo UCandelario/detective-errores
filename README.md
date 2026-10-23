@@ -38,6 +38,8 @@ python scripts/probar.py        # pruebas de todas las funciones, sin AWS ni dep
 Más comandos y qué probar en cada carril: [`docs/LOCAL.md`](docs/LOCAL.md).
 
 ## Antes de tocar nada
+Si eres colaborador nuevo, empieza por [`docs/EMPEZAR.md`](docs/EMPEZAR.md): de cero a tu primera prueba en unos 15 minutos.
+
 Lee en este orden:
 1. [`docs/CONTRIBUIR.md`](docs/CONTRIBUIR.md): ramas, commits y pull requests.
 2. [`docs/SEGURIDAD.md`](docs/SEGURIDAD.md): **nunca** subas credenciales ni secretos.
