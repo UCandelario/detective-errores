@@ -8,53 +8,44 @@ Somos tres personas. El reparto es una propuesta y se puede ajustar de común ac
 | **B** | API, DynamoDB y pruebas | `functions/api/`, modelo de datos en `docs/` | por asignar |
 | **C** | Panel web, Terraform y pipeline (coordina la infraestructura) | `web/`, `infra/`, `.github/` | dueño de la cuenta |
 
-Decisión pendiente antes de empezar con funciones: **lenguaje de las Lambdas** (Python o Node). Se decide una vez y se anota como ADR en `docs/adr/`.
+Lenguaje de las Lambdas: **Python** ([ADR 0001](adr/0001-lenguaje-lambdas.md)).
 
-## Orden de trabajo
-Una cosa nueva por vez. Cada etapa termina con: pruebas en local, pull request revisado, documentación actualizada y, si toca AWS, aprobación de despliegue.
+## Cómo están partidas las tareas
+Cada etapa tiene su archivo en `docs/tareas/`. Cada tarea:
+- Es **pequeña** (de 20 minutos a 2 horas) y se puede probar sola.
+- Dice de qué **depende**, cuánto **cuesta**, qué se **aprende**, los **pasos**, una **prueba rápida** y cuándo está **hecha**.
+- Si es de lógica, se prueba en local en segundos con `python scripts/probar.py`.
+- Si toca AWS, necesita el **OK del dueño** antes de crear nada y se anota en `docs/RECURSOS.md`.
 
-### Etapa 0: base (dueño de la cuenta, ya hecho o en curso)
-- [x] Cuenta AWS verificada y alerta de presupuesto creada.
-- [ ] Repo privado con esta documentación y colaboradores invitados.
-- [ ] Decidir lenguaje de las Lambdas (ADR).
+## Mapa de etapas
+| Etapa | Carril | Meta | Tareas | Detalle |
+|---|---|---|---|---|
+| 0. Base | C y todos | Equipo listo para trabajar en local | T0.1 a T0.6 | [etapa-0](tareas/etapa-0-base.md) |
+| 1. Página en S3 | C | Página estática en bucket privado, con CloudFront y Terraform | T1.1 a T1.10 | [etapa-1](tareas/etapa-1-pagina-s3.md) |
+| 2. Primera Lambda | B (apoya C) | Función "hola" desplegada y consumida por la página | T2.1 a T2.8 | [etapa-2](tareas/etapa-2-primera-lambda.md) |
+| 3. Datos | B | Tabla DynamoDB y API de estado e historial | T3.1 a T3.9 | [etapa-3](tareas/etapa-3-datos.md) |
+| 4. El detective | A | Revisor cada 5 min y aviso a Slack en cambios | T4.1 a T4.12 | [etapa-4](tareas/etapa-4-detective.md) |
+| 5. Panel | C | Página con estado real e historial | T5.1 a T5.7 | [etapa-5](tareas/etapa-5-panel.md) |
+| 6. Pipeline y cierre | C y todos | CI/CD con OIDC, seguridad y decisión de futuro | T6.1 a T6.8 | [etapa-6](tareas/etapa-6-pipeline-cierre.md) |
 
-### Etapa 1: la página en S3 (carril C)
-- [ ] Página estática mínima en `web/`.
-- [ ] Bucket S3 privado y subida manual de la página (se aprende en la consola).
-- [ ] Repetir lo mismo en Terraform (`infra/`).
-- [ ] CloudFront con acceso restringido al bucket.
+## Qué se puede hacer en paralelo
+Las etapas 1, 2, 3 y 4 empiezan con tareas de **lógica pura** que no necesitan AWS, así que los tres pueden trabajar a la vez desde el primer día:
 
-### Etapa 2: primera Lambda (carril B, apoyo de C)
-- [ ] Lambda "hola" que devuelve JSON, con prueba unitaria en local.
-- [ ] Publicarla con Function URL y llamarla desde la página.
+| Carril | Puede empezar ya con | Sin tocar AWS |
+|---|---|---|
+| A | T4.1, T4.2, T4.4, T4.5 | sí |
+| B | T2.1, T2.2, T3.1, T3.2, T3.3 | sí |
+| C | T1.1, T1.2 | sí |
 
-### Etapa 3: datos (carril B)
-- [ ] Definir el modelo de la tabla (claves, TTL) y escribirlo en `docs/`.
-- [ ] Tabla DynamoDB provisionada en Terraform.
-- [ ] La API lista el estado actual y el historial de un sitio.
+Lo que toca AWS espera al OK del dueño y se hace de a una pieza por vez.
 
-### Etapa 4: el detective (carril A)
-- [ ] Revisor: lee la lista fija de sitios, mide código y latencia, guarda en DynamoDB.
-- [ ] EventBridge Scheduler lo dispara cada 5 minutos.
-- [ ] Avisador: detecta cambios de estado y manda el mensaje a Slack.
-- [ ] Webhook de Slack en SSM Parameter Store (nunca en el repo).
-
-### Etapa 5: panel completo (carril C)
-- [ ] La página muestra estado actual, historial y colores por estado.
-
-### Etapa 6: pipeline y cierre (carril C, con apoyo de todos)
-- [ ] GitHub Actions con OIDC hacia AWS, con permisos mínimos.
-- [ ] Despliegue con aprobación manual del dueño de la cuenta.
-- [ ] Revisión de seguridad y de secretos en el historial.
-- [ ] README reproducible, `docs/RECURSOS.md` al día y lecciones aprendidas.
-- [ ] Decidir si el repo pasa a público y dónde vive la página cuando venza el plan de AWS.
-
-## Dependencias
-- La etapa 3 necesita el lenguaje decidido (etapa 0).
-- La etapa 4 necesita el modelo de datos (etapa 3) y el bucket/API funcionando solo para el panel, no para el revisor.
-- La etapa 6 necesita que las etapas 1 a 4 existan en Terraform.
+## Dependencias importantes
+- La etapa 4 (despliegue y programación) necesita la tabla de la etapa 3.
+- El panel real (etapa 5) necesita la API de la etapa 3.
+- El pipeline (etapa 6) necesita que lo anterior exista en Terraform.
 
 ## Cómo tomar una tarea
-1. Elige una casilla sin dueño en tu carril, o acuerda con el equipo si es de otro.
-2. Crea una rama (ver [`CONTRIBUIR.md`](CONTRIBUIR.md)).
-3. Marca la casilla en el mismo pull request que la cierra.
+1. Elige una tarea sin dueño en tu carril, o acuerda con el equipo si es de otro.
+2. Crea una rama (ver [`CONTRIBUIR.md`](CONTRIBUIR.md)), por ejemplo `a/t4-1-validar-sitios`.
+3. Escribe primero la prueba, luego el código. Corre `python scripts/probar.py`.
+4. Abre un PR pequeño. Marca la tarea como hecha **en el mismo PR** cambiando su título a "✅".
