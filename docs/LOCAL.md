@@ -1,5 +1,7 @@
 # Montaje y pruebas en local
 
+> ¿Eres nuevo? Empieza por [`EMPEZAR.md`](EMPEZAR.md): clonar, comprobar y un ejemplo completo. Esta página es la referencia de qué probar y cómo.
+
 Todo cambio se prueba en tu máquina **antes** de abrir un pull request. No necesitas acceso a AWS para hacerlo.
 
 ## Principios
@@ -11,15 +13,23 @@ Todo cambio se prueba en tu máquina **antes** de abrir un pull request. No nece
 | Herramienta | Para qué | Estado |
 |---|---|---|
 | Git | Control de versiones | requerido |
-| Lenguaje de las Lambdas | Correr código y pruebas | por decidir (ADR en la etapa 0) |
+| Python 3.12 o superior | Correr código y pruebas de las Lambdas ([ADR 0001](adr/0001-lenguaje-lambdas.md)) | requerido |
 | Terraform | Validar infraestructura (`terraform validate`, `fmt`) | se instala cuando haya código en `infra/` |
 
 Cualquier herramienta nueva se acuerda antes y se explica (para qué, costo, licencia).
 
+## Comandos
+```bash
+python scripts/probar.py            # pruebas de todas las funciones
+python scripts/probar.py revisor    # solo una función (revisor, avisador o api)
+python -m http.server 8080 --directory web   # abrir la página en http://localhost:8080
+```
+Las pruebas usan `unittest` de la biblioteca estándar: no hay que instalar nada. Cada función tiene `app.py` y `test_app.py` en su carpeta, dentro de `functions/`.
+
 ## Flujo local
 1. Clona el repo y crea tu rama (ver [`CONTRIBUIR.md`](CONTRIBUIR.md)).
 2. Escribe o ajusta la prueba primero cuando sea posible.
-3. Corre las pruebas de tu carpeta.
+3. Corre las pruebas de tu carpeta (`python scripts/probar.py <funcion>`).
 4. Para la página: ábrela con un servidor estático local y verifica que se vea bien y que maneje errores de la API (por ejemplo, la API caída).
 5. Para Terraform: `terraform fmt -check` y `terraform validate` en `infra/`. El `plan` contra la cuenta real lo corre el dueño.
 6. Revisa `git status` antes de commitear: nada de `.env`, claves ni estados de Terraform.
