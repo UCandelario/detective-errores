@@ -4,7 +4,7 @@ Proyecto de **práctica entre tres personas** para aprender a construir y desple
 
 No es un proyecto de trabajo: usa una cuenta AWS **personal** y debe quedar **gratis**.
 
-> Estado: en arranque (2026-10-23). El orden de trabajo está en [`docs/TAREAS.md`](docs/TAREAS.md).
+> Estado: en arranque (2026-10-23). El reparto y las tareas por etapa están en [`docs/TAREAS.md`](docs/TAREAS.md).
 
 ## Qué hace
 ```text
@@ -25,9 +25,17 @@ Detalle y alcance: [`docs/PROYECTO.md`](docs/PROYECTO.md).
 | Carpeta | Para qué |
 |---|---|
 | `web/` | La página (estática) |
-| `functions/` | Funciones Lambda (revisor, avisador, API) |
+| `functions/` | Funciones Lambda en Python (`revisor/`, `avisador/`, `api/`), cada una con `app.py` y `test_app.py` |
 | `infra/` | Infraestructura como código (Terraform) |
-| `docs/` | Documentación, decisiones (ADR) y lecciones aprendidas |
+| `config/` | Configuración sin secretos (lista fija de sitios) |
+| `scripts/` | Utilidades del proyecto (`probar.py` corre todas las pruebas) |
+| `docs/` | Documentación, tareas por etapa (`docs/tareas/`) y decisiones (`docs/adr/`) |
+
+## Probar en local
+```bash
+python scripts/probar.py        # pruebas de todas las funciones, sin AWS ni dependencias
+```
+Más comandos y qué probar en cada carril: [`docs/LOCAL.md`](docs/LOCAL.md).
 
 ## Antes de tocar nada
 Lee en este orden:
