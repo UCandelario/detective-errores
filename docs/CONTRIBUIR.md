@@ -12,6 +12,23 @@
 >
 > Red de seguridad extra: el workflow `guardia-main` falla en rojo (y GitHub avisa por correo) si un commit llega a `main` sin pull request.
 
+## Si `main` avanzó mientras tu PR estaba abierto
+La rama protegida exige que **tu rama esté al día con `main`** antes de fusionar. Cuando otro PR se fusiona primero, en tu PR verás el aviso **"This branch is out-of-date with the base branch"** y el botón de fusionar quedará bloqueado. No es un error: es la señal para actualizar.
+
+1. En la página del PR, pulsa **Update branch**. GitHub mezcla `main` en tu rama y vuelve a correr los checks.
+2. O hazlo en tu máquina (merge, no rebase):
+   ```bash
+   git fetch origin
+   git switch tu-rama
+   git merge origin/main
+   python scripts/probar.py
+   git push
+   ```
+3. Si hay conflictos, resuélvelos con calma y corre las pruebas antes de subir. Si dudas, pide ayuda en el PR.
+4. Espera a que los checks pasen otra vez. Si tenías una aprobación, GitHub puede pedir una nueva si se subieron commits.
+
+Esto evita fusionar código que funcionaba contra un `main` viejo pero falla contra el actual.
+
 ## Reglas de código
 - Nombres explícitos: `revisarSitio`, no `chk`. Funciones pequeñas con una sola responsabilidad.
 - Cada función Lambda tiene pruebas unitarias que no llaman a AWS (ver [`LOCAL.md`](LOCAL.md)).
