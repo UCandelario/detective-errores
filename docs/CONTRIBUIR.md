@@ -9,6 +9,8 @@
 6. Se fusiona con "Squash and merge" para mantener un historial limpio.
 
 > Nota: en repos privados del plan gratuito de GitHub no se puede *forzar* la protección de `main`. Esta regla funciona por acuerdo: nadie empuja directo a `main` ni fusiona su propio PR sin revisión.
+>
+> Red de seguridad: el workflow `guardia-main` falla en rojo (y GitHub avisa por correo) si un commit llega a `main` sin pull request, y los checks `CI` y `Revisión de secretos` corren en cada PR. Avisan, pero **no bloquean**: no los ignores.
 
 ## Reglas de código
 - Nombres explícitos: `revisarSitio`, no `chk`. Funciones pequeñas con una sola responsabilidad.
