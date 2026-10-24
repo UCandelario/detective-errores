@@ -33,7 +33,8 @@ Formato de cada tarea: carril, dependencias, tiempo estimado, costo, qué se apr
 ### T0.5 Primer pull request de práctica
 - **Carril:** todos · **Depende de:** T0.4 · **Tiempo:** 20 min · **Costo:** 0
 - **Aprendes:** el flujo rama → commit → pull request → revisión → fusión.
-- **Pasos:** cada colaborador crea una rama (`a/practica-flujo` o `b/practica-flujo`), añade su nombre y el carril a `docs/EQUIPO.md` (archivo nuevo), abre un PR y otra persona lo revisa y lo fusiona.
+- **Pasos:** cada colaborador crea una rama (`a/practica-flujo` o `b/practica-flujo`, según su carril) y añade **su propio archivo** `docs/equipo/<tu-usuario-de-github>.md` con su nombre, su carril y una frase sobre qué quiere aprender (cada quien su archivo, para que los dos PR no choquen). Abre un PR y otra persona lo revisa y lo fusiona. Si `main` avanzó antes de fusionar, GitHub pedirá actualizar la rama (ver `docs/CONTRIBUIR.md`).
+- **No pongas:** correos, teléfonos ni datos personales: el repo es público.
 - **Prueba rápida:** el PR aparece en GitHub con la plantilla y la lista de verificación.
 - **Hecho cuando:** los dos PR de práctica están fusionados por una persona distinta de su autor.
 
