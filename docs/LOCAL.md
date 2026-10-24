@@ -41,3 +41,11 @@ Las pruebas usan `unittest` de la biblioteca estándar: no hay que instalar nada
 
 ## Lo que no se prueba en local
 Permisos reales de IAM, el comportamiento de EventBridge y la entrega a Slack se validan **después del despliegue**, con la aprobación del dueño, y se anotan en el PR.
+
+## Revisar la calidad del JavaScript antes de subir (opcional en local)
+El PR corre ESLint en GitHub. Para verlo antes en tu máquina necesitas Node 22 o superior:
+```bash
+npm ci --ignore-scripts   # instala solo ESLint, con las versiones exactas del lock (una vez)
+npm run lint              # revisa web/*.js
+```
+`--ignore-scripts` evita que un paquete ejecute código al instalarse. La carpeta `node_modules/` no se sube al repo. Si no tienes Node, no pasa nada: el PR lo revisa por ti. Para el Python, `python -m compileall -q functions scripts` comprueba la sintaxis.
