@@ -35,3 +35,31 @@ Cada Lambda y cada rol tiene solo los permisos que necesita, sobre los recursos 
 
 ## Sitios vigilados
 Solo sitios propios o de práctica, con lista fija en configuración. No se acepta una URL arbitraria de un usuario.
+
+## Repositorio público: qué lo protege
+El repo es **público**: cualquiera puede leer el código y el historial, así que **todo lo que se suba es público para siempre** (borrar un commit no lo retira de las copias ni de los PR).
+
+| Capa | Qué hace | Dónde |
+|---|---|---|
+| Ruleset "Proteger main" | Exige PR con 1 aprobación, checks en verde y squash; nadie queda exento | Settings → Rules |
+| Escaneo de secretos de GitHub | Detecta claves conocidas en el repo | Settings → Code security |
+| Protección de push de GitHub | **Rechaza el push** si contiene un secreto reconocido | Settings → Code security |
+| `Secretos en el cambio` | Nuestro escáner (`scripts/revisar_secretos.py`) sobre las líneas del PR | Workflow `secretos.yml` |
+| `ESLint` y `Sintaxis de Python` | Calidad del código, con reglas que prohíben `eval` y similares | Workflow `calidad.yml` |
+| `CodeQL` | Análisis de seguridad de Python y JavaScript | Workflow `codeql.yml` |
+| `guardia-main` | Avisa si un commit llega a `main` sin PR | Workflow `guardia-main.yml` |
+| Reporte privado de vulnerabilidades | Canal para avisar de un problema sin hacerlo público | Pestaña Security (ver `SECURITY.md`) |
+
+Ninguna de estas capas es perfecta: ayudan, pero no reemplazan la regla de oro de arriba. Si un push es rechazado por la protección de secretos, **no lo fuerces ni lo saltes**: quita el secreto del cambio y avisa al dueño.
+
+## Qué NUNCA debe ir a un repo público
+Credenciales, webhooks, tokens, claves, el contenido de `.env` o de `*.tfstate`, URLs con firmas o tokens, datos personales de otras personas (correos, nombres) y datos de prueba reales. El ID de cuenta de AWS no es un secreto, pero tampoco hace falta publicarlo.
+
+Las **URLs públicas de la página y de la API sí son públicas** (la página las necesita). Por eso lo que protege el costo y el abuso son los límites en AWS (concurrencia reservada, validación de entradas, lista fija de sitios y alertas de presupuesto), no esconder la URL.
+
+## Workflows y pull requests de personas externas
+- Solo quienes tienen permiso de escritura pueden subir ramas del repo. Cualquier otra persona solo puede proponer cambios desde un fork.
+- Los workflows usan `pull_request` y **nunca** `pull_request_target`, que daría a código externo acceso a permisos y secretos.
+- Los workflows no usan secretos y tienen permisos mínimos (`contents: read`); solo CodeQL puede escribir resultados de seguridad.
+- Todas las acciones son oficiales de GitHub y van fijadas por hash de commit.
+- Antes de añadir un workflow o una acción nueva, se revisa quién puede dispararlo y con qué permisos.
