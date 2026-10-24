@@ -18,7 +18,7 @@ class PruebaBuscarEnTexto(unittest.TestCase):
     def test_detecta_cada_tipo(self):
         casos = {
             CLAVE_FALSA: "clave de acceso de AWS",
-            "aws_secret_access_key = abc123": "clave secreta de AWS",
+            "aws_secret_access_key" + " = abc123": "clave secreta de AWS",
             WEBHOOK_FALSO: "webhook de Slack",
             TOKEN_SLACK_FALSO: "token de Slack",
             TOKEN_GITHUB_FALSO: "token de GitHub",
