@@ -23,7 +23,10 @@ Cualquier herramienta nueva se acuerda antes y se explica (para qué, costo, lic
 python scripts/probar.py            # pruebas de todas las funciones
 python scripts/probar.py revisor    # solo una función (revisor, avisador o api)
 python -m http.server 8080 --directory web   # abrir la página en http://localhost:8080
+python -m unittest discover -s scripts -p "test_*.py"   # pruebas de los scripts
+python scripts/revisar_secretos.py --base origin/main   # busca secretos en tu cambio antes de subirlo
 ```
+El PR corre estas mismas comprobaciones en GitHub Actions (`.github/workflows/`). Si el escáner de secretos marca algo, **no lo subas**: revisa y, si es un falso positivo en documentación, añade `revisar-secretos: ignorar` en esa línea.
 Las pruebas usan `unittest` de la biblioteca estándar: no hay que instalar nada. Cada función tiene `app.py` y `test_app.py` en su carpeta, dentro de `functions/`.
 
 ## Flujo local

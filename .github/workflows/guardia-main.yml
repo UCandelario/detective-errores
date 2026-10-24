@@ -1,0 +1,39 @@
+name: Guardia de main
+
+# Avisa si un commit llega a main sin haber pasado por un pull request.
+# No bloquea ni revierte nada (eso solo lo hace la protección de rama): falla en rojo
+# para que GitHub envíe el aviso por correo. Sin checkout, sin credenciales y con
+# permisos de solo lectura.
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  guardia:
+    name: Commit con pull request
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Comprobar que el commit viene de un pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          # GitHub puede tardar unos segundos en asociar el commit con su PR: se reintenta.
+          for intento in 1 2 3 4 5; do
+            prs=$(gh api "repos/$REPO/commits/$SHA/pulls" --jq 'length')
+            if [ "$prs" -gt 0 ]; then
+              echo "OK: el commit $SHA pertenece a un pull request."
+              exit 0
+            fi
+            echo "Intento $intento: sin pull request asociado todavía."
+            sleep 10
+          done
+          echo "::error::El commit $SHA llegó a main sin pull request (push directo)."
+          exit 1

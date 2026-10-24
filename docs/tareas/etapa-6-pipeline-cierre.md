@@ -6,13 +6,13 @@
 
 ---
 
-### T6.1 Pruebas automáticas en cada pull request (sin AWS)
+### T6.1 Pruebas automáticas en cada pull request (sin AWS) ✅ (`.github/workflows/ci.yml`)
 - **Depende de:** T0.2 · **Tiempo:** 1 h · **Costo:** 0 (minutos gratuitos)
 - **Pasos:** workflow en `.github/workflows/` que corre `python scripts/probar.py` en cada PR. **No usa credenciales ni acciones de terceros**: solo acciones oficiales de GitHub (`actions/checkout`, `actions/setup-python`), previo OK del dueño.
 - **Prueba rápida:** abrir un PR con una prueba que falla a propósito y comprobar que el workflow la marca en rojo.
 - **Hecho cuando:** el check aparece en los PR y falla ante una prueba rota.
 
-### T6.2 Revisión de secretos antes de fusionar
+### T6.2 Revisión de secretos antes de fusionar ✅ (`.github/workflows/secretos.yml` y `scripts/revisar_secretos.py`)
 - **Depende de:** T6.1 · **Tiempo:** 1 h · **Costo:** 0
 - **Pasos:** añade un paso que busca patrones obvios de credenciales (`AKIA`, `hooks.slack.com`, `-----BEGIN`) en el cambio, con un script propio. **No uses herramientas ni acciones de terceros sin acuerdo.**
 - **Hecho cuando:** un commit de prueba con un patrón falso (en una rama descartable) hace fallar el check.
