@@ -1,0 +1,17 @@
+{
+  "name": "detective-errores",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Herramientas de desarrollo (solo lint). La aplicación no depende de npm.",
+  "scripts": {
+    "lint": "eslint web"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "eslint": "10.13.0",
+    "globals": "17.13.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
