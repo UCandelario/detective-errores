@@ -26,5 +26,7 @@
 - Cada despliegue se hace en pasos pequeños, una cosa nueva por vez.
 - Si algo sale mal, no se improvisa: se detiene, se anota y se revierte con un PR o con `destroy` del recurso afectado, con aprobación del dueño.
 
-## Pipeline (etapa 6)
-GitHub Actions con OIDC y un rol de permisos mínimos. El despliegue automático exige aprobación manual del dueño. Las acciones de terceros se acuerdan antes de usarlas. Los minutos gratuitos de Actions para repos privados están limitados (2.000 al mes en el plan gratuito); se vigilan.
+## Pipeline de despliegue (etapa 6, opcional)
+**El camino por defecto es el despliegue manual del dueño**, descrito arriba; AWS no necesita GitHub para funcionar. El despliegue automático (tareas T6.4 y T6.5) es opcional.
+
+Si se decide hacerlo: GitHub Actions con OIDC y un rol de permisos mínimos. El despliegue automático exige aprobación manual del dueño. Las acciones de terceros se acuerdan antes de usarlas. Los minutos gratuitos de Actions para repos privados están limitados (2.000 al mes en el plan gratuito); se vigilan.

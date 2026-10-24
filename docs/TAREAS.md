@@ -26,7 +26,7 @@ Cada etapa tiene su archivo en `docs/tareas/`. Cada tarea:
 | 3. Datos | B | Tabla DynamoDB y API de estado e historial | T3.1 a T3.9 | [etapa-3](tareas/etapa-3-datos.md) |
 | 4. El detective | A | Revisor cada 5 min y aviso a Slack en cambios | T4.1 a T4.12 | [etapa-4](tareas/etapa-4-detective.md) |
 | 5. Panel | C | Página con estado real e historial | T5.1 a T5.7 | [etapa-5](tareas/etapa-5-panel.md) |
-| 6. Pipeline y cierre | C y todos | CI/CD con OIDC, seguridad y decisión de futuro | T6.1 a T6.8 | [etapa-6](tareas/etapa-6-pipeline-cierre.md) |
+| 6. Pipeline y cierre | C y todos | CI, seguridad y decisión de futuro; despliegue con OIDC **opcional** (T6.4 y T6.5) | T6.1 a T6.8 | [etapa-6](tareas/etapa-6-pipeline-cierre.md) |
 
 ## Qué se puede hacer en paralelo
 Las etapas 1, 2, 3 y 4 empiezan con tareas de **lógica pura** que no necesitan AWS, así que los tres pueden trabajar a la vez desde el primer día:
