@@ -47,5 +47,5 @@ Lo que toca AWS espera al OK del dueño y se hace de a una pieza por vez.
 ## Cómo tomar una tarea
 1. Elige una tarea sin dueño en tu carril, o acuerda con el equipo si es de otro.
 2. Crea una rama (ver [`CONTRIBUIR.md`](CONTRIBUIR.md)), por ejemplo `a/t4-1-validar-sitios`.
-3. Escribe primero la prueba, luego el código. Corre `python scripts/probar.py`.
+3. Escribe primero la prueba, luego el código. Los resultados esperados exactos de las funciones están en [`CONTRATOS.md`](CONTRATOS.md). Corre `python scripts/probar.py`.
 4. Abre un PR pequeño. Marca la tarea como hecha **en el mismo PR** cambiando su título a "✅".

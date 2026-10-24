@@ -40,6 +40,8 @@ Más comandos y qué probar en cada carril: [`docs/LOCAL.md`](docs/LOCAL.md).
 ## Antes de tocar nada
 Si eres colaborador nuevo, empieza por [`docs/EMPEZAR.md`](docs/EMPEZAR.md): de cero a tu primera prueba en unos 15 minutos.
 
+Si usas un asistente de IA (Claude Code, Copilot, Cursor u otro), léele primero [`AGENTS.md`](AGENTS.md): son las reglas de alcance, estilo y seguridad que debe seguir. Todas las ramas pasan por una auditoría ([`docs/AUDITORIA.md`](docs/AUDITORIA.md)).
+
 Lee en este orden:
 1. [`docs/CONTRIBUIR.md`](docs/CONTRIBUIR.md): ramas, commits y pull requests.
 2. [`docs/SEGURIDAD.md`](docs/SEGURIDAD.md): **nunca** subas credenciales ni secretos.

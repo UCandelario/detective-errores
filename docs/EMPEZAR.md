@@ -122,7 +122,18 @@ Permisos reales de AWS, EventBridge y la entrega a Slack se verifican después d
 | Una prueba falla en tu máquina pero no en la de otro | Versión de Python distinta | Compara con `python --version`; usa 3.12 o superior |
 | Sospechas que subiste un secreto | — | **Avisa de inmediato** al dueño; ver [`SEGURIDAD.md`](SEGURIDAD.md). Borrar el commit no basta |
 
-## 10. Dónde seguir
+## 10. Si usas un asistente de IA
+Puedes usarlo, con estas condiciones (las reglas completas están en [`AGENTS.md`](../AGENTS.md)):
+1. **Dile que lea `AGENTS.md`** antes de empezar y dile **qué tarea haces** (por ejemplo `T4.2`). Los asistentes que leen archivos del repo (Claude Code, Copilot, Cursor y otros) lo toman solos, pero verifícalo.
+2. **Tú eres responsable de cada línea** que subas. Léela completa y asegúrate de poder explicarla con tus palabras.
+3. **Que no se salga de la tarea:** si toca archivos que no son de tu tarea y de tu carril, o añade archivos y dependencias nuevas, descártalo y vuelve a pedirlo más acotado.
+4. **Antes de abrir el PR**, corre tú mismo `python scripts/probar.py` y `python scripts/auditar_codigo.py functions/<tu-carpeta>`.
+5. **Marca la casilla de IA** en la plantilla del pull request. No es un castigo: ayuda a revisar mejor.
+6. **Nunca le pegues a un asistente claves, tokens ni datos personales.**
+
+Todas las ramas pasan por una auditoría ([`AUDITORIA.md`](AUDITORIA.md)). Código que no se entiende o que se sale de las reglas se devuelve para corregir; es parte de aprender.
+
+## 11. Dónde seguir
 - Reglas de ramas y PR: [`CONTRIBUIR.md`](CONTRIBUIR.md)
 - Seguridad: [`SEGURIDAD.md`](SEGURIDAD.md)
 - Qué probar según tu carril: [`LOCAL.md`](LOCAL.md)
